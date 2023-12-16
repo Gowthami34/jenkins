@@ -1,0 +1,7 @@
+FROM centos:7
+RUN yum -y update
+RUN yum -y install epel-release && yum clean all
+RUN yum -y install httpd mod_ssl lsof tree && yum clean all && systemctl enable httpd.service && systemctl start httpd.service
+COPY index.html /var/www/html/
+EXPOSE 80
+ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
